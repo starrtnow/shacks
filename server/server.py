@@ -30,6 +30,7 @@ def find_nutri_information(search_term):
     r = requests.get(nutri_reqquest)
     n_list = r.json()['report']['food']['nutrients']
     nut_dict = {}
+    nut_dict['name'] = search_term
     for nutrient in n_list:
         if nutrient['name'] == "Energy":
             nut_dict['calories'] = nutrient['value']
