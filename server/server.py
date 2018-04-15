@@ -53,8 +53,20 @@ def get_labels(imagedata):
     print("Google Cloud Vision Success")
     return labels[0].description
 
+def get_web_labels(imagedata):
+    print("Grabbing labels")
+    image = base64.decodestring(imagedata)
+    client = vision.ImageAnnotatorClient()
+    i = types.Image(content=image)
+    response = client.web_detection(image=i)
+    print("Google Cloud Vision Success")
+    return response.web_detection.web_entities[0].description
+
+
+     
+
 def detect_image_and_get_nutri(image_data):
-    label = get_labels(image_data)
+    label = get_web_labels(image_data)
     return find_nutri_information(label)
 
 
