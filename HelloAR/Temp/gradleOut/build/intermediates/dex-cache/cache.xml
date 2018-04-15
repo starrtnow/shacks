@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\Starr Yang\.android\build-cache\6d7c405bebc2f2c6ff225a1ad249064da700e6eb\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="3b08b853fe85764387602ff10decaf2b449f4ea2">
+        <dex dex="C:\Users\Starr Yang\Documents\HelloAR\Temp\gradleOut\build\intermediates\pre-dexed\release\classes_d3a30fa0b6354ae45f144da3aa187f61e6eff948.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Starr Yang\Documents\HelloAR\Temp\gradleOut\libs\unity-classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="7443096731009c4f1edb3f24ae945743c1ad23b7">
+        <dex dex="C:\Users\Starr Yang\Documents\HelloAR\Temp\gradleOut\build\intermediates\pre-dexed\release\unity-classes_39ac6a5d4a9335c763655ac11f33c36d53ad8515.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Starr Yang\.android\build-cache\6bf9c847f3e9311128c21c5b4cc741940f1ee6c3\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="448cd9e15d90e66e4b1e8e3f02e4c953f44c6f31">
+        <dex dex="C:\Users\Starr Yang\Documents\HelloAR\Temp\gradleOut\build\intermediates\pre-dexed\release\classes_efed21dc9a05f5e681e5ce69a8baca6eb8adbd31.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Starr Yang\.android\build-cache\6d7c405bebc2f2c6ff225a1ad249064da700e6eb\output\jars\libs\tango_java_lib.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="dac29b41332a170a55310a99e3e2f3058e3ac419">
+        <dex dex="C:\Users\Starr Yang\Documents\HelloAR\Temp\gradleOut\build\intermediates\pre-dexed\release\tango_java_lib_aadb29615d7684877f3380e7bd4fcb773a6398ff.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Starr Yang\.android\build-cache\9f0708f8f08a909421af51cb266edf25ce71bd55\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="27.0.3"
+        sha1="be35cfb98dbf80214072c4eb41da843fb0d4400d">
+        <dex dex="C:\Users\Starr Yang\Documents\HelloAR\Temp\gradleOut\build\intermediates\pre-dexed\release\classes_e124b032330c13c0aa39227128cba9d36534e040.jar" />
+    </item>
+
+</items>
