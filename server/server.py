@@ -6,6 +6,7 @@ from google.cloud.vision import types
 import requests
 from flask import Flask
 from flask import request
+import json
 app = Flask(__name__)
 
 NUTRI_API_KEY = "6Kq9IccnK9D6jwvFKSG6qDb9ha5qRL1H4YHzdSTF"
@@ -27,7 +28,19 @@ def find_nutri_information(search_term):
     ndbno = r.json()['list']['item'][0]['ndbno']
     nutri_reqquest = "https://api.nal.usda.gov/ndb/reports/?ndbno={}&type=b&format=json&api_key={}".format(ndbno, NUTRI_API_KEY)
     r = requests.get(nutri_reqquest)
-    return get_energy(r.json())
+    n_list = r.json()['report']['food']['nutrients']
+    nut_dict = {}
+    for nutrient in n_list:
+        if nutrient['name'] == "Energy":
+            nut_dict['calories'] = nutrient['value']
+        elif nutrient['name'] == "Protein":
+            nut_dict['protein'] = nutrient['value']
+        elif nutrient['name'] == "Total lipid (fat)":
+            nut_dict['fat'] = nutrient['value']
+        elif nutrient['name'] == 'Fiber, total dietary':
+            nut_dict['fiber'] = nutrient['value']
+
+    return json.dumps(nut_dict)
 
 def get_labels(imagedata):
     print("Grabbing labels")
@@ -50,9 +63,9 @@ def detect_image_and_get_nutri(image_data):
 def nutri():
     if request.method == "POST":
         image = request.form['image']
+        print(request.form['image'])
         a = detect_image_and_get_nutri(image.encode())
-        print(a)
-        return 'thing{}'.format(a)
+        return a
     
     return 'okay'
 
