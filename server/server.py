@@ -7,6 +7,8 @@ import requests
 from flask import Flask
 from flask import request
 import json
+import csv
+import pandas
 app = Flask(__name__)
 
 NUTRI_API_KEY = "6Kq9IccnK9D6jwvFKSG6qDb9ha5qRL1H4YHzdSTF"
@@ -25,6 +27,7 @@ def find_nutri_information(search_term):
     print("Getting nutri..>")
     get_request = "https://api.nal.usda.gov/ndb/search/?format=json&q={}&sort=r&max=1&offset=0&api_key={}".format(search_term, NUTRI_API_KEY)
     r = requests.get(get_request) 
+    print(get_request)
     ndbno = r.json()['list']['item'][0]['ndbno']
     nutri_reqquest = "https://api.nal.usda.gov/ndb/reports/?ndbno={}&type=b&format=json&api_key={}".format(ndbno, NUTRI_API_KEY)
     r = requests.get(nutri_reqquest)
@@ -51,7 +54,7 @@ def get_labels(imagedata):
     response = client.label_detection(image=i)
     labels = response.label_annotations
     print("Google Cloud Vision Success")
-    return labels[0].description
+    return labels
 
 def get_web_labels(imagedata):
     print("Grabbing labels")
@@ -59,24 +62,36 @@ def get_web_labels(imagedata):
     client = vision.ImageAnnotatorClient()
     i = types.Image(content=image)
     response = client.web_detection(image=i)
+    labels = client.label_detection(image=i)
     print("Google Cloud Vision Success")
-    return response.web_detection.web_entities[0].description
-
-
-     
+    return list(response.web_detection.web_entities) + list(labels.label_annotations)
 
 def detect_image_and_get_nutri(image_data):
     label = get_web_labels(image_data)
-    return find_nutri_information(label)
+    best = bestFoodOrElse(label)
+    try:
+        return find_nutri_information(best)
+    except:
+        return json.dumps({"name": best, "calories": "", "protein": "", "fat": "", "fiber": ""})
 
+def loadCSV():
+    return pandas.DataFrame.from_csv('./foods.csv', encoding = "ISO-8859-1")
 
+def isFood(name):
+    return name in food['name'].values
+
+def bestFoodOrElse(col):
+    for item in col:
+        if isFood(item.description):
+            return item.description
+    return col[0].description
 
 #server stuff
 @app.route('/nutri/', methods=['POST'])
 def nutri():
     if request.method == "POST":
         image = request.form['image']
-        print(request.form['image'])
+        #print(request.form['image'])
         a = detect_image_and_get_nutri(image.encode())
         return a
     
@@ -85,6 +100,8 @@ def nutri():
 @app.route('/')
 def default():
     return "hi"
+
+food = loadCSV()
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
